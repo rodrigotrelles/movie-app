@@ -18,7 +18,7 @@ const Header = ({ searchValue, setSearchValue }) => {
     }, [])
 
     return (
-        <HeaderContainer>
+        <HeaderContainer srcImg={process.env.PUBLIC_URL + '/header.png'}>
             <Title>Clockwork Movie App</Title>
             <SearchbarContainer>
                 <Searchbar type="text" ref={inputElement} placeholder="Search movies..." value={searchValue} onChange={e => setSearchValue(e.target.value)} />

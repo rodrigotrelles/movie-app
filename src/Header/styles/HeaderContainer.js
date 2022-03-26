@@ -1,9 +1,6 @@
 
 import styled from 'styled-components';
 
-// images
-import img from '../../images/header.png';
-
 const HeaderContainer = styled.header`
     width: 100%;
     height: 388px;
@@ -11,8 +8,7 @@ const HeaderContainer = styled.header`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.73)), url(${img});
-    background-color: #cccccc;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75)), url(${props => props.srcImg});
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
