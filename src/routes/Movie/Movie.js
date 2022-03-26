@@ -1,4 +1,4 @@
-const Movie = ({ }) => {
+const Movie = () => {
     return (
         <div>hi</div>
     )

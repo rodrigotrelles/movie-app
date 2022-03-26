@@ -1,11 +1,12 @@
 // hooks
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 
 // router
 import { Link } from "react-router-dom";
 
 // components
-import Header from '../Header';
+import Header from '../components/Header';
+import Movies from '../components/Movies';
 
 function App() {
 
@@ -15,8 +16,7 @@ function App() {
   return (
     <div className="App">
       <Header searchValue={searchValue} setSearchValue={setSearchValue} />
-
-      {searchValue}
+      <Movies searchValue={searchValue} />
     </div>
   );
 }

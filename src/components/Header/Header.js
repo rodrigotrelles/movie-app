@@ -2,10 +2,10 @@
 import { useEffect, useRef } from 'react';
 
 // icons
-import { ReactComponent as SearchIcon } from '../icons/search.svg';
+import { ReactComponent as SearchIcon } from '../../assets/icons/search.svg';
 
 // styles
-import HeaderContainer from '../Header/styles/HeaderContainer';
+import HeaderContainer from './styles/HeaderContainer';
 import Title from './styles/Title';
 import Searchbar from './styles/Searchbar';
 import SearchbarContainer from './styles/SearchbarContainer';

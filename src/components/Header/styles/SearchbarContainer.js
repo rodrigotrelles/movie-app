@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLORS } from '../../assets/resources/colors';
+import { COLORS } from '../../../assets/resources/colors';
 
 const SearchbarContainer = styled.div`
     width: 100%;
@@ -21,7 +21,7 @@ const SearchbarContainer = styled.div`
     }
 
     > input:placeholder-shown + svg {
-        color: ${COLORS.Gray};
+        color: ${COLORS.GrayLight};
     }
 
 `

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { COLORS } from '../../assets/resources/colors';
+import { COLORS } from '../../../assets/resources/colors';
 
 const Searchbar = styled.input`
     width: 100%;
@@ -13,7 +13,7 @@ const Searchbar = styled.input`
     transition: 0.3s ease color;
 
     &::placeholder {
-        color: ${COLORS.GrayLight};
+        color: ${COLORS.Gray};
     }
 
     &:focus {

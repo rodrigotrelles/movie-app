@@ -1,6 +1,6 @@
 
 import styled from 'styled-components';
-import { COLORS } from '../../assets/resources/colors';
+import { COLORS } from '../../../assets/resources/colors';
 
 const Title = styled.h1`
    color: ${COLORS.White};
