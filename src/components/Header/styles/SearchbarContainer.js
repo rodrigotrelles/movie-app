@@ -11,7 +11,7 @@ const SearchbarContainer = styled.div`
 
     > svg {
         color: black;
-        transition: 0.3s ease all;
+        transition: 0.3s cubic-bezier(.25,.8,.25,1) all;
         position: absolute;
         left: 40px;
         top: 50%;

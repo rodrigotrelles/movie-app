@@ -10,7 +10,7 @@ const Searchbar = styled.input`
     font-size: 24px;
     font-weight: medium;
     padding: 6px 24px 6px 54px;
-    transition: 0.3s ease color;
+    transition: 0.3s cubic-bezier(.25,.8,.25,1) color;
 
     &::placeholder {
         color: ${COLORS.Gray};

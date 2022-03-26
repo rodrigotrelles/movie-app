@@ -6,7 +6,7 @@ const StarsContainer = styled.div`
 
     > svg {
         cursor: pointer;
-        transition: all 0.3 ease;
+        transition: all 0.3 cubic-bezier(.25,.8,.25,1);
 
         &:hover {
             filter: brightness(90%)

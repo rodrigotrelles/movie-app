@@ -12,7 +12,7 @@ import './index.css';
 
 // components
 import App from "./App";
-import Movie from "./Movie";
+import Movie from "./routes/Movie";
 
 const rootElement = document.getElementById("root");
 render(
