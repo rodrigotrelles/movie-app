@@ -1,8 +1,10 @@
 
 import styled from 'styled-components';
+
+// images
 import img from '../../images/header.png';
 
-const Header = styled.header`
+const HeaderContainer = styled.header`
     width: 100%;
     height: 388px;
     display: flex;
@@ -17,4 +19,4 @@ const Header = styled.header`
     position: relative;
 `
 
-export default Header;
+export default HeaderContainer;

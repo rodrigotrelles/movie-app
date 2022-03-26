@@ -1,37 +1,22 @@
 // hooks
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 // router
 import { Link } from "react-router-dom";
 
-// icons
-import { ReactComponent as SearchIcon } from '../icons/search.svg';
-
-// styles
-import Header from './styles/Header';
-import Title from './styles/Title';
-import Searchbar from './styles/Searchbar';
-import SearchbarContainer from './styles/SearchbarContainer';
+// components
+import Header from '../Header';
 
 function App() {
 
-  const inputElement = useRef();
+  const [searchValue, setSearchValue] = useState();
 
-  useEffect(() => {
-    inputElement.current.focus();
-  }, [])
 
   return (
     <div className="App">
+      <Header searchValue={searchValue} setSearchValue={setSearchValue} />
 
-      <Header>
-        <Title>Clockwork Movie App</Title>
-        <SearchbarContainer>
-          <Searchbar type="text" ref={inputElement} placeholder="Search movies..." />
-          <SearchIcon />
-        </SearchbarContainer>
-      </Header>
-
+      {searchValue}
     </div>
   );
 }
