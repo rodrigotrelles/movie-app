@@ -13,7 +13,13 @@ const Rating = ({ rating, setRating }) => {
     return (
         <StarsContainer>
             {stars.map((star) =>
-                <StarIcon key={star} onClick={() => setRating(star)} color={rating >= star ? COLORS.RedPrimary : COLORS.GrayLight} width={31} height={32} />)}
+                <StarIcon
+                    key={star}
+                    onClick={() => setRating(star)}
+                    color={rating >= star ? COLORS.RedPrimary : COLORS.GrayLight}
+                    width={31}
+                    height={32}
+                />)}
         </StarsContainer>
     )
 }

@@ -1,9 +1,6 @@
 // hooks
 import { useState } from 'react';
 
-// router
-import { Link } from "react-router-dom";
-
 // components
 import Header from '../components/Header';
 import Movies from '../components/Movies';
