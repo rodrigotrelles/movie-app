@@ -23,13 +23,13 @@ const Card = styled(Link)`
     overflow: hidden;
 
     &:first-child, &:nth-child(9), &:last-child { 
-        grid-column: auto / span 2;
-        aspect-ratio: 2 / 4;
+        grid-column: ${props => !props.carrousel && 'auto / span 2'};
+        aspect-ratio: ${props => !props.carrousel && '2 / 4'};
     }
 
     &:nth-child(6) {
-        grid-column: 2 / 5;
-        grid-row: 2 / 4;
+        grid-column: ${props => !props.carrousel && '2 / 5'};
+        grid-row: ${props => !props.carrousel && '2 / 4'};
     } 
     
     &:hover {

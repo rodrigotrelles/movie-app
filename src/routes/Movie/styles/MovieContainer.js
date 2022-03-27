@@ -7,7 +7,7 @@ const MovieContainer = styled.main`
     position: relative;
     display: flex;
     flex-direction: column;
-    padding: 36px 24px;
+    padding: 36px 0 36px 24px;
 `
 
 export default MovieContainer;

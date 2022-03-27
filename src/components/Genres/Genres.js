@@ -5,7 +5,7 @@ import Genre from './styles/Genre';
 const Genres = ({ genres }) => {
     return (
         <Container>
-            {genres.map(genre => <Genre key={genre.id}>{genre.name}</Genre>)}
+            {genres.map((genre, index) => <Genre key={index}>{genre.name || genre}</Genre>)}
         </Container>
     );
 }

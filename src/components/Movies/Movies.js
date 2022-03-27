@@ -39,7 +39,7 @@ const Movies = ({ searchValue }) => {
                 setLoading(true);
                 const filterLessThan = ratingFilter !== 0 ? ratingFilter : 10;
                 const filterGreaterThan = ratingFilter !== 0 ? (ratingFilter - 2) : 0;
-                const moviesUrlFiltered = `${moviesUrl}&vote_average.lte=${filterLessThan}&vote_average.gte=${filterGreaterThan}`
+                const moviesUrlFiltered = `${moviesUrl}&vote_average.lte=${filterLessThan}&vote_average.gte=${filterGreaterThan}`;
                 const getMovies = axios.get(moviesUrlFiltered);
                 const getImagesConfiguration = axios.get(configUrl);
                 const [response, config] = await axios.all([getMovies, getImagesConfiguration])

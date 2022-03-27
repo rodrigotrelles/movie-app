@@ -25,33 +25,49 @@ import Title from './styles/Title';
 import Description from './styles/Description';
 import RatingContainer from './styles/RatingContainer';
 import AddButton from './styles/AddButton';
+import MoviesCarrousel from '../../components/MoviesCarrousel';
 
 const Movie = ({ match }) => {
     const { id } = useParams();
     const [movie, setMovie] = useState();
     const [configuration, setConfiguration] = useState([]);
+    const [similarMovies, setSimilarMovies] = useState();
+    const [bestMovies, setBestMovies] = useState();
 
     const API_KEY = '8d56e2fc700c33ec0fc2adcba4831bd9';
-    const moviesUrl = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`;
+    const movieUrl = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`;
+    const moviesUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&page=${1}`;
     const configUrl = `https://api.themoviedb.org/3/configuration?api_key=${API_KEY}`;
 
-    const imgUrl =
+    useEffect(() => {
+        const fetchMovie = async () => {
+            const getMovie = axios.get(movieUrl);
+            const getImagesConfiguration = axios.get(configUrl);
+            const [response, config] = await axios.all([getMovie, getImagesConfiguration])
+            setConfiguration(config.data.images);
+            setMovie(response.data);
+        }
+        fetchMovie();
+    }, [])
 
-        useEffect(() => {
-            const fetchMovie = async () => {
-                const getMovie = axios.get(moviesUrl);
-                const getImagesConfiguration = axios.get(configUrl);
-                const [response, config] = await axios.all([getMovie, getImagesConfiguration])
-                setConfiguration(config.data.images);
-                setMovie(response.data);
-                console.log(response.data)
-                console.log(config.data.images)
+    useEffect(() => {
+        const fetchMovies = async () => {
+            const similarMoviesUrl = `${moviesUrl}&with_genres=${movie.genres[0].id}`;
+            const getSimilarMovies = axios.get(similarMoviesUrl);
+            const bestRatedUrl = `${moviesUrl}&vote_average.lte=10&vote_average.gte=8`;
+            const getBestRatedMovies = axios.get(bestRatedUrl);
+            const [similar, bestRated] = await axios.all([getSimilarMovies, getBestRatedMovies])
+            setSimilarMovies(similar.data.results);
+            setBestMovies(bestRated.data.results);
+        }
 
-            }
-            fetchMovie();
-        }, [])
+        if (movie) {
+            fetchMovies();
+        }
+    }, [movie])
 
-    if (!movie) {
+
+    if (!similarMovies || !bestMovies) {
         return <LoaderContainer><Loader></Loader></LoaderContainer>;
     }
 
@@ -69,7 +85,8 @@ const Movie = ({ match }) => {
                 <Genres genres={movie.genres} />
             </RatingContainer>
             <AddButton left onClick={() => { }}>Add to list<PlusIcon width={22} color="white" /></AddButton>
-
+            <MoviesCarrousel title="Browse similar titles" movies={similarMovies.slice(0, 5)} configuration={configuration} />
+            <MoviesCarrousel title="Best Rated" movies={bestMovies.slice(0, 5)} configuration={configuration} />
         </MovieContainer>
     )
 }
