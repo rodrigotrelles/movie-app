@@ -7,6 +7,7 @@ const FilterLabel = styled.span`
     font-size: 18px;
     line-height: 24px;
     font-weight: 500;
+    font-family: "Raleway", sans-serif;
 `
 
 export default FilterLabel;

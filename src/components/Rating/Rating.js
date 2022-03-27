@@ -7,7 +7,7 @@ import { COLORS } from '../../assets/resources/colors';
 // styles
 import StarsContainer from './styles/StarsContainer';
 
-const Rating = ({ rating, setRating, card }) => {
+const Rating = ({ rating, setRating, card, movie }) => {
     const stars = [2, 4, 6, 8, 10];
 
     const setRatingHandler = star => {
@@ -17,15 +17,24 @@ const Rating = ({ rating, setRating, card }) => {
         }
     }
 
+    const width = () => {
+        if (card) {
+            return 13;
+        } else if (movie) {
+            return 46;
+        }
+        return 32;
+    }
+
     return (
         <StarsContainer>
             {stars.map((star) =>
                 <StarIcon
                     key={star}
                     onClick={() => setRatingHandler(star)}
-                    color={(card && rating >= star - 2) || (!card & rating >= star) ? COLORS.RedPrimary : COLORS.GrayLight}
-                    width={card ? 13 : 31}
-                    height={card ? 13 : 32}
+                    color={((card || movie) && rating >= star - 2) || ((!card && !movie) & rating >= star) ? COLORS.RedPrimary : COLORS.GrayLight}
+                    width={width()}
+                    height={width()}
                 />)}
         </StarsContainer>
     )

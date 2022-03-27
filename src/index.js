@@ -19,7 +19,7 @@ render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} />
-      <Route path="movie/:movieId" element={<Movie />} />
+      <Route path="movie/:id" element={<Movie />} />
     </Routes>
   </BrowserRouter>,
   rootElement

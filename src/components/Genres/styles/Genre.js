@@ -7,7 +7,7 @@ const Genre = styled.div`
     color: ${COLORS.Cyan};
     font-size: 14px;
     line-height: 16px;
-    padding: 2px 4px;
+    padding: 12px 16px;
     border-radius: 0 8px;
 `
 

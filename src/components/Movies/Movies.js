@@ -45,7 +45,7 @@ const Movies = ({ searchValue }) => {
                 const [response, config] = await axios.all([getMovies, getImagesConfiguration])
                 setConfiguration(config.data.images);
                 setMovies(response.data.results);
-                // console.log({ response })
+                console.log({ response })
             } catch (e) {
                 console.log(e);
             } finally {
@@ -85,7 +85,6 @@ const Movies = ({ searchValue }) => {
                     <Paginator>
                         <PaginatorButton left onClick={previousPage}>Previous<ChevronLeft width={22} color="white" /></PaginatorButton>
                         <PaginatorButton onClick={nextPage}>Next <ChevronRight width={22} color="white" /></PaginatorButton>
-
                     </Paginator>
                 </>
             }
