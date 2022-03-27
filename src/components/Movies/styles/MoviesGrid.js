@@ -6,6 +6,7 @@ const MoviesGrid = styled.section`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: repeat(4, 600px);
+    grid-auto-rows: 600px;
     gap: 16px;
 `
 

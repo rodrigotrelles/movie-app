@@ -5,6 +5,7 @@ export const COLORS = {
     GrayLight: '#C4C4C4',
 
     // red
+    RedPrimaryDark: '#BA104D',
     RedPrimary: '#E10856',
 
     // cyan

@@ -12,12 +12,10 @@ const Rating = ({ rating, setRating, card }) => {
 
     const setRatingHandler = star => {
         if (setRating) {
-            setRating(star);
+            const newRating = rating === star ? 0 : star;
+            setRating(newRating);
         }
     }
-
-
-    console.log(rating);
 
     return (
         <StarsContainer>
@@ -25,7 +23,7 @@ const Rating = ({ rating, setRating, card }) => {
                 <StarIcon
                     key={star}
                     onClick={() => setRatingHandler(star)}
-                    color={rating >= star ? COLORS.RedPrimary : COLORS.GrayLight}
+                    color={(card && rating >= star - 2) || (!card & rating >= star) ? COLORS.RedPrimary : COLORS.GrayLight}
                     width={card ? 13 : 31}
                     height={card ? 13 : 32}
                 />)}
