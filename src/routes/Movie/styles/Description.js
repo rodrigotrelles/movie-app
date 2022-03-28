@@ -10,8 +10,8 @@ const Description = styled.p`
     color: ${COLORS.White};
 
     @media (min-width: 768px) {
-        font-size: 64px;
-        line-height: 116px;
+        font-size: 36px;
+        line-height: 51px;
     }
 `
 
