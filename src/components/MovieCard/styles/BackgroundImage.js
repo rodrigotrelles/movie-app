@@ -5,6 +5,7 @@ const BackgroundImage = styled.div`
     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.73)), url(${props => props.background});
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: top center;
     position: absolute;
     top: 0;
     left: 0;

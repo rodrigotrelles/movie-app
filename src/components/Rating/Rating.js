@@ -43,12 +43,26 @@ const Rating = ({ rating, setRating, card, movie }) => {
     }
 
     const paintStar = star => {
+        // Hover rating star scenario
         if (starHovered >= star) {
             return true;
         }
-        if (((card || movie) && rating > star - 2) || ((!card && !movie) & rating >= star)) {
+
+        // not rated
+        if (rating === 0) {
+            return false;
+        }
+
+        // Movies card scenario
+        if ((card || movie) && rating > star - 2) {
             return true;
         }
+
+        // Rating scenario 
+        if (((!card && !movie) & rating >= star)) {
+            return true;
+        }
+
         return false;
     }
 

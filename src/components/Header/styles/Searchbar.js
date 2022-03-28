@@ -7,7 +7,7 @@ const Searchbar = styled.input`
     border: none;
     border-radius: 89px;
     color: black;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: medium;
     font-family: "Raleway", sans-serif;
     padding: 6px 24px 6px 54px;
@@ -20,6 +20,10 @@ const Searchbar = styled.input`
     &:focus {
        outline-offset: 1px;
        outline: 2px solid ${COLORS.RedPrimary};
+    }
+
+    @media (min-width: 600px) {
+        font-size: 24px;
     }
 `
 

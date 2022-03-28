@@ -22,15 +22,23 @@ const Card = styled(Link)`
     position: relative;
     overflow: hidden;
 
-    &:first-child, &:nth-child(9), &:last-child { 
-        grid-column: ${props => !props.carrousel && 'auto / span 2'};
-        aspect-ratio: ${props => !props.carrousel && '2 / 4'};
+    @media (min-width: 600px) {
     }
 
-    &:nth-child(6) {
-        grid-column: ${props => !props.carrousel && '2 / 5'};
-        grid-row: ${props => !props.carrousel && '2 / 4'};
-    } 
+    @media (min-width: 768px) {
+    }
+
+    @media (min-width: 1024px) {
+        &:first-child, &:nth-child(9), &:last-child { 
+            grid-column: ${props => !props.carrousel && 'auto / span 2'};
+            aspect-ratio: ${props => !props.carrousel && '2 / 4'};
+        }
+
+        &:nth-child(6) {
+            grid-column: ${props => !props.carrousel && '2 / 5'};
+            grid-row: ${props => !props.carrousel && '2 / 4'};
+        } 
+    }
     
     &:hover {
         transform: translateY(-4px);

@@ -4,10 +4,13 @@ import { COLORS } from '../../../assets/resources/colors';
 const SearchbarContainer = styled.div`
     width: 100%;
     max-width: 400px;
-    height: 58px;
+    height: 50px;
     padding: 0 24px;
     position: relative;
 
+    @media (min-width: 600px) {
+        height: 58px;
+    }
 
     > svg {
         color: black;
