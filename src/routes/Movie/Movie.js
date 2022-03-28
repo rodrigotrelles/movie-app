@@ -18,6 +18,7 @@ import Genres from '../../components/Genres';
 
 // styles
 import MovieContainer from './styles/MovieContainer';
+import InfoContainer from './styles/InfoContainer';
 import BackgroundImage from './styles/BackgroundImage';
 import BackButton from './styles/BackButton';
 import LoaderContainer from './styles/LoaderContainer';
@@ -76,18 +77,20 @@ const Movie = ({ match }) => {
 
     return (
         <MovieContainer>
-            <BackgroundImage background={`${configuration.base_url}${configuration.backdrop_sizes[3]}${movie.backdrop_path}`} />
-            <BackButton to={`../../`}>
-                <ChevronLeft width={40} color="white" />
-                Back
-            </BackButton>
-            <Title>{movie.title}</Title>
-            <Description>{movie.overview}</Description>
-            <RatingContainer>
-                <Rating movie rating={movie.vote_average} />
-                <Genres genres={movie.genres} />
-            </RatingContainer>
-            <AddButton left onClick={() => { }}>Add to list<PlusIcon width={22} color="white" /></AddButton>
+            <InfoContainer>
+                <BackgroundImage background={`${configuration.base_url}${configuration.backdrop_sizes[3]}${movie.backdrop_path}`} />
+                <BackButton to={`../../`}>
+                    <ChevronLeft width={40} color="white" />
+                    Back
+                </BackButton>
+                <Title>{movie.title}</Title>
+                <Description>{movie.overview}</Description>
+                <RatingContainer>
+                    <Rating movie rating={movie.vote_average} />
+                    <Genres genres={movie.genres} />
+                </RatingContainer>
+                <AddButton left onClick={() => { }}>Add to list<PlusIcon width={22} color="white" /></AddButton>
+            </InfoContainer>
             <MoviesCarrousel title="Browse similar titles" movies={similarMovies.slice(0, 5)} configuration={configuration} />
             <MoviesCarrousel title="Best Rated" movies={bestMovies.slice(0, 5)} configuration={configuration} />
         </MovieContainer>
