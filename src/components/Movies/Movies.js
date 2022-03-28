@@ -32,6 +32,7 @@ const Movies = ({ searchValue }) => {
     const API_KEY = '8d56e2fc700c33ec0fc2adcba4831bd9';
     const moviesUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&page=${page}`;
     const configUrl = `https://api.themoviedb.org/3/configuration?api_key=${API_KEY}`;
+    const genresUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`;
 
     useEffect(() => {
         const fetchMovies = async () => {
@@ -42,10 +43,19 @@ const Movies = ({ searchValue }) => {
                 const moviesUrlFiltered = `${moviesUrl}&vote_average.lte=${filterLessThan}&vote_average.gte=${filterGreaterThan}`;
                 const getMovies = axios.get(moviesUrlFiltered);
                 const getImagesConfiguration = axios.get(configUrl);
-                const [response, config] = await axios.all([getMovies, getImagesConfiguration])
+                const getGenres = axios.get(genresUrl);
+                const [response, config, genres] = await axios.all([getMovies, getImagesConfiguration, getGenres]);
                 setConfiguration(config.data.images);
-                setMovies(response.data.results);
-                console.log({ response })
+                const moviesCopy = response.data.results.map(movie => {
+                    const genresList = movie.genre_ids.map(genre => {
+                        return genres.data.genres.find(el => el.id === genre);
+                    });
+                    return {
+                        ...movie,
+                        genre_ids: genresList
+                    };
+                });
+                setMovies(moviesCopy);
             } catch (e) {
                 console.log(e);
             } finally {
@@ -59,12 +69,14 @@ const Movies = ({ searchValue }) => {
 
     const nextPage = () => {
         if (page < 1000) {
+            window.scrollTo(0, 0);
             setPage(page + 1);
         }
     }
 
     const previousPage = () => {
         if (page > 1) {
+            window.scrollTo(0, 0);
             setPage(page - 1);
         }
     }
