@@ -26,3 +26,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  width: 25% !important;
+  max-width: 396px !important;
+  aspect-ratio: 1 / 2;
+  max-height: 608px;
+}

@@ -30,6 +30,7 @@ import MoviesCarrousel from '../../components/MoviesCarrousel';
 const Movie = ({ match }) => {
     const { id } = useParams();
     const [movie, setMovie] = useState();
+    const [loading, setLoading] = useState(true);
     const [configuration, setConfiguration] = useState([]);
     const [similarMovies, setSimilarMovies] = useState();
     const [bestMovies, setBestMovies] = useState();
@@ -40,6 +41,8 @@ const Movie = ({ match }) => {
     const configUrl = `https://api.themoviedb.org/3/configuration?api_key=${API_KEY}`;
 
     useEffect(() => {
+        setLoading(true);
+        window.scrollTo(0, 0);
         const fetchMovie = async () => {
             const getMovie = axios.get(movieUrl);
             const getImagesConfiguration = axios.get(configUrl);
@@ -48,7 +51,7 @@ const Movie = ({ match }) => {
             setMovie(response.data);
         }
         fetchMovie();
-    }, [])
+    }, [id])
 
     useEffect(() => {
         const fetchMovies = async () => {
@@ -63,11 +66,11 @@ const Movie = ({ match }) => {
 
         if (movie) {
             fetchMovies();
+            setLoading(false);
         }
     }, [movie])
 
-
-    if (!similarMovies || !bestMovies) {
+    if (!similarMovies || !bestMovies || loading) {
         return <LoaderContainer><Loader></Loader></LoaderContainer>;
     }
 

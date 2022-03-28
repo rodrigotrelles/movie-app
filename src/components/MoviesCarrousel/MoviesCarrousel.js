@@ -4,18 +4,30 @@ import MovieCard from '../../components/MovieCard';
 // styles
 import Container from './styles/Container';
 import Title from './styles/Title';
-import MoviesContainer from './styles/MoviesContainer';
 import Carrousel from './styles/Carrousel';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import "swiper/css";
 
 const MoviesCarrousel = ({ title, movies, configuration }) => {
     return (
         <Container>
             <Title>{title}</Title>
-            <MoviesContainer>
-                <Carrousel>
-                    {movies.map(movie => <MovieCard key={movie.id} movie={movie} configuration={configuration} carrousel />)}
-                </Carrousel>
-            </MoviesContainer>
+            <Carrousel>
+                <Swiper
+                    spaceBetween={24}
+                    grabCursor={true}
+                    slidesPerView={3}
+                    initialSlide={0}
+                    onSlideChange={(e) => { }}
+                >
+                    {movies.map((movie, index) =>
+                        <SwiperSlide key={index} id={movie} index={index}>
+                            <MovieCard movie={movie} configuration={configuration} carrousel={true} />
+                        </SwiperSlide>
+                    )}
+                </Swiper>
+
+            </Carrousel>
         </Container>
     );
 }
