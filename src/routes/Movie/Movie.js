@@ -43,15 +43,23 @@ const Movie = ({ match }) => {
     const movieUrl = `${API.baseUrl}${API.getMovie}/${id}?api_key=${API_KEY}`;
     const moviesUrl = `${API.baseUrl}${API.getMovies}?api_key=${API_KEY}&page=${1}`;
     const configUrl = `${API.baseUrl}${API.configuration}?api_key=${API_KEY}`;
+    const genresUrl = `${API.baseUrl}${API.genres}?api_key=${API_KEY}`;
+
+    useEffect(() => {
+        const fetchConfiguration = async () => {
+            const getImagesConfiguration = axios.get(configUrl);
+            const [config] = await axios.all([getImagesConfiguration]);
+            setConfiguration(config.data.images);
+        }
+        fetchConfiguration();
+    }, []);
 
     useEffect(() => {
         setLoading(true);
         window.scrollTo(0, 0);
         const fetchMovie = async () => {
             const getMovie = axios.get(movieUrl);
-            const getImagesConfiguration = axios.get(configUrl);
-            const [response, config] = await axios.all([getMovie, getImagesConfiguration])
-            setConfiguration(config.data.images);
+            const [response] = await axios.all([getMovie])
             setMovie(response.data);
         }
         fetchMovie();
@@ -63,9 +71,31 @@ const Movie = ({ match }) => {
             const getSimilarMovies = axios.get(similarMoviesUrl);
             const bestRatedUrl = `${moviesUrl}&vote_average.lte=10&vote_average.gte=8`;
             const getBestRatedMovies = axios.get(bestRatedUrl);
-            const [similar, bestRated] = await axios.all([getSimilarMovies, getBestRatedMovies])
-            setSimilarMovies(similar.data.results);
-            setBestMovies(bestRated.data.results);
+            const getGenres = axios.get(genresUrl);
+
+            const [similar, bestRated, genres] = await axios.all([getSimilarMovies, getBestRatedMovies, getGenres])
+
+            const similarCopy = similar.data.results.map(movie => {
+                const genresList = movie.genre_ids.map(genre => {
+                    return genres.data.genres.find(el => el.id === genre);
+                });
+                return {
+                    ...movie,
+                    genre_ids: genresList
+                };
+            });
+
+            const bestRatedCopy = bestRated.data.results.map(movie => {
+                const genresList = movie.genre_ids.map(genre => {
+                    return genres.data.genres.find(el => el.id === genre);
+                });
+                return {
+                    ...movie,
+                    genre_ids: genresList
+                };
+            });
+            setSimilarMovies(similarCopy);
+            setBestMovies(bestRatedCopy);
         }
 
         if (movie) {
