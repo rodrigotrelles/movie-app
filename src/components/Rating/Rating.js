@@ -1,3 +1,6 @@
+// hooks
+import { useState } from 'react';
+
 // icons
 import { ReactComponent as StarIcon } from '../../assets/icons/star.svg';
 
@@ -8,6 +11,7 @@ import { COLORS } from '../../assets/resources/colors';
 import StarsContainer from './styles/StarsContainer';
 
 const Rating = ({ rating, setRating, card, movie }) => {
+    const [starHovered, setStarHovered] = useState();
     const stars = [2, 4, 6, 8, 10];
 
     const setRatingHandler = star => {
@@ -26,15 +30,39 @@ const Rating = ({ rating, setRating, card, movie }) => {
         return 32;
     }
 
+    const onMouseEnterHandler = star => {
+        if (!card && !movie) {
+            setStarHovered(star);
+        }
+    }
+
+    const onMouseLeaveHandler = () => {
+        if (!card && !movie) {
+            setStarHovered();
+        }
+    }
+
+    const paintStar = star => {
+        if (starHovered >= star) {
+            return true;
+        }
+        if (((card || movie) && rating > star - 2) || ((!card && !movie) & rating >= star)) {
+            return true;
+        }
+        return false;
+    }
+
     return (
         <StarsContainer>
             {stars.map((star) =>
                 <StarIcon
                     key={star}
                     onClick={() => setRatingHandler(star)}
-                    color={((card || movie) && rating >= star - 2) || ((!card && !movie) & rating >= star) ? COLORS.RedPrimary : COLORS.GrayLight}
+                    color={paintStar(star) ? COLORS.RedPrimary : COLORS.GrayLight}
                     width={width()}
                     height={width()}
+                    onMouseEnter={() => onMouseEnterHandler(star)}
+                    onMouseLeave={onMouseLeaveHandler}
                 />)}
         </StarsContainer>
     )
