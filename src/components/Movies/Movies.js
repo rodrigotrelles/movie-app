@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react';
 // axios
 import axios from 'axios';
 
+// api
+import { API } from '../../utils/api';
+
 // icons
 import { ReactComponent as ChevronLeft } from '../../assets/icons/chevron-left.svg';
 import { ReactComponent as ChevronRight } from '../../assets/icons/chevron-right.svg';
@@ -29,10 +32,20 @@ const Movies = ({ searchValue }) => {
     const [movies, setMovies] = useState([]);
     const [configuration, setConfiguration] = useState([]);
 
-    const API_KEY = '8d56e2fc700c33ec0fc2adcba4831bd9';
-    const moviesUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&page=${page}`;
-    const configUrl = `https://api.themoviedb.org/3/configuration?api_key=${API_KEY}`;
-    const genresUrl = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}`;
+    const API_KEY = process.env.REACT_APP_API_KEY;
+    const moviesUrl = `${API.baseUrl}${API.getMovies}?api_key=${API_KEY}&page=${page}`;
+    const configUrl = `${API.baseUrl}${API.configuration}?api_key=${API_KEY}`;
+    const genresUrl = `${API.baseUrl}${API.genres}?api_key=${API_KEY}`;
+    const searchUrl = `${API.baseUrl}${API.searchMovie}?api_key=${API_KEY}`;
+
+    useEffect(() => {
+        const fetchConfiguration = async () => {
+            const getImagesConfiguration = axios.get(configUrl);
+            const [config] = await axios.all([getImagesConfiguration]);
+            setConfiguration(config.data.images);
+        }
+        fetchConfiguration();
+    }, []);
 
     useEffect(() => {
         const fetchMovies = async () => {
@@ -40,12 +53,14 @@ const Movies = ({ searchValue }) => {
                 setLoading(true);
                 const filterLessThan = ratingFilter !== 0 ? ratingFilter : 10;
                 const filterGreaterThan = ratingFilter !== 0 ? (ratingFilter - 2) : 0;
-                const moviesUrlFiltered = `${moviesUrl}&vote_average.lte=${filterLessThan}&vote_average.gte=${filterGreaterThan}`;
+
+                const moviesUrlFiltered = searchValue && searchValue.length > 0
+                    ? `${searchUrl}&query=${searchValue}`
+                    : `${moviesUrl}&vote_average.lte=${filterLessThan}&vote_average.gte=${filterGreaterThan}`;
+
                 const getMovies = axios.get(moviesUrlFiltered);
-                const getImagesConfiguration = axios.get(configUrl);
                 const getGenres = axios.get(genresUrl);
-                const [response, config, genres] = await axios.all([getMovies, getImagesConfiguration, getGenres]);
-                setConfiguration(config.data.images);
+                const [response, genres] = await axios.all([getMovies, getGenres]);
                 const moviesCopy = response.data.results.map(movie => {
                     const genresList = movie.genre_ids.map(genre => {
                         return genres.data.genres.find(el => el.id === genre);
@@ -94,10 +109,10 @@ const Movies = ({ searchValue }) => {
                             <MovieCard key={movie.id} movie={movie} configuration={configuration} pos={index} />
                         ))}
                     </MoviesGrid>
-                    <Paginator>
+                    {!searchValue && <Paginator>
                         <PaginatorButton left onClick={previousPage}>Previous<ChevronLeft width={22} color="white" /></PaginatorButton>
                         <PaginatorButton onClick={nextPage}>Next <ChevronRight width={22} color="white" /></PaginatorButton>
-                    </Paginator>
+                    </Paginator>}
                 </>
             }
         </Main>

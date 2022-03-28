@@ -4,6 +4,9 @@ import { useState, useEffect } from 'react';
 // axios
 import axios from 'axios';
 
+// api
+import { API } from '../../utils/api';
+
 // icons
 import { ReactComponent as ChevronLeft } from '../../assets/icons/chevron-left.svg';
 import { ReactComponent as PlusIcon } from '../../assets/icons/plus.svg';
@@ -36,10 +39,10 @@ const Movie = ({ match }) => {
     const [similarMovies, setSimilarMovies] = useState();
     const [bestMovies, setBestMovies] = useState();
 
-    const API_KEY = '8d56e2fc700c33ec0fc2adcba4831bd9';
-    const movieUrl = `https://api.themoviedb.org/3/movie/${id}?api_key=${API_KEY}`;
-    const moviesUrl = `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&page=${1}`;
-    const configUrl = `https://api.themoviedb.org/3/configuration?api_key=${API_KEY}`;
+    const API_KEY = process.env.REACT_APP_API_KEY;
+    const movieUrl = `${API.baseUrl}${API.getMovie}/${id}?api_key=${API_KEY}`;
+    const moviesUrl = `${API.baseUrl}${API.getMovies}?api_key=${API_KEY}&page=${1}`;
+    const configUrl = `${API.baseUrl}${API.configuration}?api_key=${API_KEY}`;
 
     useEffect(() => {
         setLoading(true);
